@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { IList } from '../types';
 import { FiEdit, FiMinusCircle } from 'react-icons/fi';
 

@@ -9,7 +9,7 @@ function App() {
   const { loading, error, data } = useQuery(GET_TODOS);
   const [input, setInput] = useState('');
 
-  const [addTodo, { error: addError }] = useMutation(ADD_TODO, {
+  const [addTodo] = useMutation(ADD_TODO, {
     update(cache, { data: { createTodo } }) {
       const previousTodos = cache.readQuery<AllTodosCache>({
         query: GET_TODOS,
@@ -23,11 +23,11 @@ function App() {
     },
   });
 
-  const [removeTodo, { error: removeError }] = useMutation(REMOVE_TODO, {
+  const [removeTodo] = useMutation(REMOVE_TODO, {
     update(cache, { data: { removeTodo } }) {
       cache.modify({
         fields: {
-          allTodos(currentTodos: { __ref: string }[] = []) {
+          allTodos(currentTodos: ReadonlyArray<{ __ref: string }> = []) {
             return currentTodos.filter(
               (todo) => todo.__ref !== `Todo:${removeTodo.id}`
             );
@@ -36,7 +36,7 @@ function App() {
       });
     },
   });
-  const [updateTodo, { error: updateError }] = useMutation(UPDATE_TODO);
+  const [updateTodo] = useMutation(UPDATE_TODO);
 
   const sort = (list: IList[]): IList[] => {
     const newList = [...list];
