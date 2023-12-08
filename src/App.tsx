@@ -22,12 +22,11 @@ function App() {
       });
     },
   });
-
   const [removeTodo] = useMutation(REMOVE_TODO, {
     update(cache, { data: { removeTodo } }) {
       cache.modify({
         fields: {
-          allTodos(currentTodos: ReadonlyArray<{ __ref: string }> = []) {
+          allTodos(currentTodos: { __ref: string }[] = []) {
             return currentTodos.filter(
               (todo) => todo.__ref !== `Todo:${removeTodo.id}`
             );
